@@ -5,9 +5,9 @@
 class Fantassin: public Unite {
 public:
 	Fantassin(): Unite("Fant",10,10,4) {
-		Porte[0] = 1;
-		Porte[1] = 0;
-		Porte[2] = 0;
+		Porte[0] = 10;
+		Porte[1] = 11;
+		Porte[2] = 12;
 	}
 	~Fantassin() {}
 };

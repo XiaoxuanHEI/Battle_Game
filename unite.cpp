@@ -53,7 +53,7 @@ void Unite::avancer() {
 		}
 	}
 
-void Unite::attaquer() {TimesAtk++;}
+void Unite::attaquer() {TimesAtk = 1;}
 void Unite::etreAttaque (int atk) {
 		HP = HP - atk;
 		if(HP <= 0){

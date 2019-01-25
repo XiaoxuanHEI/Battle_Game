@@ -18,22 +18,37 @@ public:
 		Camp = camp;
 	}
 	void CreatUnite(int flag){
-		switch(flag)
-		{
-		case 0:
-			break;
-		case 1:
-			AllSolda[0] =  new Fantassin();
-			// MarkAllSolda++;
-			break;
-		case 2:
-		 	AllSolda[0] = new Archer();
-			// MarkAllSolda++;
-			break;
-		case 3:
-		 	AllSolda[0] = new Catapulte();
-			// MarkAllSolda++;
-			break;
+		if(Tour == 0){
+			switch(flag)
+			{
+			case 0:
+				break;
+			case 1:
+				AllSolda[0] =  new Fantassin();
+				break;
+			case 2:
+				AllSolda[0] = new Archer();
+				break;
+			case 3:
+				AllSolda[0] = new Catapulte();
+				break;
+			}
+		}
+		if(Tour == 1){
+			switch(flag)
+			{
+			case 0:
+				break;
+			case 1:
+				AllSolda[11] =  new Fantassin();
+				break;
+			case 2:
+				AllSolda[11] = new Archer();
+				break;
+			case 3:
+				AllSolda[11] = new Catapulte();
+				break;
+			}
 		}
 	}
 	void etreAttaque(int atk){

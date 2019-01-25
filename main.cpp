@@ -13,6 +13,7 @@ Base *A = new Base(0);
 Base *B = new Base(1);
 
 void affiche();
+void action1();
 string getSoldaType(int position);
 string getSoldaHp(int position);
 
@@ -27,6 +28,7 @@ int main(int argc, char const *argv[]) {
   B -> CreatUnite(FlagB);
   Tour = 0;
   affiche();
+  action1();
   return 0;
 }
 
@@ -68,19 +70,38 @@ string getSoldaHp(int position){
   return to_string(AllSolda[position] -> getHP());
 }
 
-// void action1(){
-//   int *AllSoldaA[6];
-//   int markA = 0;
-//   if(Tour = 0)
-//   {
-//     for(int i = 0; i < 12; i++)
-//     {
-//       if(AllSolda[i] = NULL) continue;
-//       if(AllSolda[i] ->getPosition() == position)
-//       {
-//         AllSoldaA[markA] = AllSolda[i];
-//         markA++;
-//       }
-//     }
-//   }
-// }
+void action1(){
+  Unite *AllSoldaA[12];
+  Unite *AllSoldaB[12];
+  int markA = 0;
+  int markB = 0;
+  for(int i = 0; i < 12; i++)
+  {
+    if(AllSolda[i] = NULL) continue;
+    if(AllSolda[i] -> getCamp() == 0)
+    {
+      AllSoldaA[markA] = AllSolda[i];
+      markA++;
+    }
+    else if(AllSolda[i] -> getCamp() == 1)
+    {
+      AllSoldaA[markB] = AllSolda[i];
+      markB++;
+    }
+  }
+  cout<<"bien stocke!!!!!"<<endl;
+  if(Tour == 0)
+  {
+    for(int i = 0; i < markA; i++)
+    {
+      int distance = AllSoldaB[0] - AllSoldaA[i];
+      for(int j = 0; j < 3; j++)
+      {
+        if(distance = (AllSoldaA[i] -> getPorte())[j])
+        {
+          AllSoldaB[0] -> etreAttaque(AllSoldaA[i] -> getATK());
+        }
+      }
+    }
+  }
+}
