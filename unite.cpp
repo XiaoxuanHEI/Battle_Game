@@ -22,6 +22,7 @@ public:
 		Camp = Tour;
 		if(Camp == 0) {
 			if(Post[0] == 0) {
+				Post[0] = 1;
 				Nom = nom;
 				Position = 0;
 				Prix = prix;
@@ -34,6 +35,7 @@ public:
 
 		if(Camp == 1) {
 			if(Post[11] == 0) {
+				Post[11] = 1;
 				Position = 11;
 				Prix = prix;
 				HP = hp;
@@ -43,7 +45,24 @@ public:
 		}
 	}
 
-	virtual	void avancer()=0;
+	void avancer() {
+		if(Camp == 0) {
+			if(Post[Position+1] == 0){
+				Post[Position] = 0;
+				Position ++;
+				Post[Position] = 1;
+			}
+			else std::cerr << "You can't move forward!" << '\n';
+		}
+		if(Camp == 1) {
+			if(Post[Position-1] == 0) {
+				Post[Position] = 0;
+				Position --;
+				Post[Position] = 1;
+			}
+			else std::cerr << "You can't move forward!" << '\n';
+		}
+	}
 
 	void attaquer() {TimesAtk++;}
 	void etreAttaque (int atk) {

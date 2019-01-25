@@ -8,33 +8,8 @@ public:
 		Porte[0] = 1;
 		Porte[1] = 0;
 		Porte[2] = 0;
-		if (Camp == 0) {
-			Post[0] = 1;
-		}
-		if(Camp == 1) {
-			Post[11] = 1;
-		}
 	}
-	~Fantassin(){}
-
-	virtual	void avancer() {
-		if(Camp == 0) {
-			if(Post[Position+1] == 0){
-				Post[Position] = 0;
-				Position ++;
-				Post[Position] = 1;
-			}
-			else std::cerr << "You can't move forward!" << '\n';
-		}
-		if(Camp == 1) {
-			if(Post[Position-1] == 0) {
-				Post[Position] = 0;
-				Position --;
-				Post[Position] = 1;
-			}
-			else std::cerr << "You can't move forward!" << '\n';
-		}
-	}
+	~Fantassin() {}
 };
 
 class Archer: public Unite {
@@ -43,34 +18,9 @@ public:
 		Porte[0] = 1;
 		Porte[1] = 2;
 		Porte[2] = 3;
-		if (Camp == 0) {
-			Post[0] = 1;
-		}
-		if(Camp == 1) {
-			Post[11] = 1;
-		}
 	}
 
 	~Archer() {}
-
-	virtual	void avancer() {
-		if(Camp == 0) {
-			if(Post[Position+1] == 0){
-				Post[Position] = 0;
-				Position ++;
-				Post[Position] = 1;
-			}
-			else std::cerr << "You can't move forward!" << '\n';
-		}
-		if(Camp == 1) {
-			if(Post[Position-1] == 0) {
-				Post[Position] = 0;
-				Position --;
-				Post[Position] = 1;
-			}
-			else std::cerr << "You can't move forward!" << '\n';
-		}
-	}
 };
 
 class Catapulte: public Unite {
@@ -79,31 +29,6 @@ public:
 		Porte[0] = 2;
 		Porte[1] = 3;
 		Porte[2] = 4;
-		if (Camp == 0) {
-			Post[0] = 1;
-		}
-		if(Camp == 1) {
-			Post[11] = 1;
-		}
 	}
 	~Catapulte() {}
-
-	virtual	void avancer() {
-		if(Camp == 0) {
-			if(Post[Position+1] == 0){
-				Post[Position] = 0;
-				Position ++;
-				Post[Position] = 1;
-			}
-			else std::cerr << "You can't move forward!" << '\n';
-		}
-		if(Camp == 1) {
-			if(Post[Position-1] == 0) {
-				Post[Position] = 0;
-				Position --;
-				Post[Position] = 1;
-			}
-			else std::cerr << "You can't move forward!" << '\n';
-		}
-	}
 };
