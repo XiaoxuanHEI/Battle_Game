@@ -4,7 +4,7 @@
 using namespace std;
 
 extern Unite *AllSolda[12];
-extern int MarkAllSolda;
+// extern int MarkAllSolda;
 
 class Base{
 protected:
@@ -20,17 +20,19 @@ public:
 	void CreatUnite(int flag){
 		switch(flag)
 		{
+		case 0:
+			break;
 		case 1:
-			AllSolda[MarkAllSolda] =  new Fantassin();
-			MarkAllSolda++;
+			AllSolda[0] =  new Fantassin();
+			// MarkAllSolda++;
 			break;
 		case 2:
-		 	AllSolda[MarkAllSolda] = new Archer();
-			MarkAllSolda++;
+		 	AllSolda[0] = new Archer();
+			// MarkAllSolda++;
 			break;
 		case 3:
-		 	AllSolda[MarkAllSolda] = new Catapulte();
-			MarkAllSolda++;
+		 	AllSolda[0] = new Catapulte();
+			// MarkAllSolda++;
 			break;
 		}
 	}

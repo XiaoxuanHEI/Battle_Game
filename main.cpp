@@ -3,11 +3,12 @@
 #include "base.cpp"
 using namespace std;
 
-int Post[12] = {0};
+// int Post[12] = {0};
 Unite *AllSolda[12];
-int MarkAllSolda = 0;
+// int MarkAllSolda = 0;
 int Tour = 0; // tour = 0, tour de A; tour = 1, tour de B;
-int Flag;
+int FlagA;
+int FlagB;
 Base *A = new Base(0);
 Base *B = new Base(1);
 
@@ -17,9 +18,14 @@ string getSoldaHp(int position);
 
 int main(int argc, char const *argv[]) {
   affiche();
-  cout << "Premiere tour: Commencer par joueur A."<<endl;
-  cin >> Flag;
-  A -> CreatUnite(Flag);
+  cout << "Premiere tour: Commencer par joueur A:"<<endl;
+  cin >> FlagA;
+  A -> CreatUnite(FlagA);
+  Tour = 1;
+  cout << "Premiere tour: joueur B:"<<endl;
+  cin >> FlagB;
+  B -> CreatUnite(FlagB);
+  Tour = 0;
   affiche();
   return 0;
 }
@@ -37,23 +43,44 @@ void affiche(){
 }
 
 string getSoldaType(int position){
-  for(int i = 0; i<12; i++){
-    if(AllSolda[i] == NULL) return " ";
-    if(AllSolda[i] -> getPosition() == position)
-    {
-      return AllSolda[i] -> getNom();
-    }
-  }
-  return " ";
+  // for(int i = 0; i<12; i++){
+  //   if(AllSolda[i] == NULL) return "0";
+  //   if(AllSolda[i] -> getPosition() == position)
+  //   {
+  //     return AllSolda[i] -> getNom();
+  //   }
+  // }
+  // return " ";
+  if(AllSolda[position] == NULL) return " ";
+  return AllSolda[position] -> getNom();
 }
 
 string getSoldaHp(int position){
-  for(int i = 0; i<12; i++){
-    if(AllSolda[i] == NULL) return " ";
-    if(AllSolda[i] -> getPosition() == position)
-    {
-      return to_string(AllSolda[i] -> getHP());
-    }
-  }
-  return " ";
+  // for(int i = 0; i<12; i++){
+  //   if(AllSolda[i] == NULL) return "0";
+  //   if(AllSolda[i] -> getPosition() == position)
+  //   {
+  //     return to_string(AllSolda[i] -> getHP());
+  //   }
+  // }
+  // return " ";
+  if(AllSolda[position] == NULL) return " ";
+  return to_string(AllSolda[position] -> getHP());
 }
+
+// void action1(){
+//   int *AllSoldaA[6];
+//   int markA = 0;
+//   if(Tour = 0)
+//   {
+//     for(int i = 0; i < 12; i++)
+//     {
+//       if(AllSolda[i] = NULL) continue;
+//       if(AllSolda[i] ->getPosition() == position)
+//       {
+//         AllSoldaA[markA] = AllSolda[i];
+//         markA++;
+//       }
+//     }
+//   }
+// }
