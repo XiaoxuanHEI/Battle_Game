@@ -43,7 +43,7 @@ public:
 		}
 	}
 
-	virtual	void avancer();
+	virtual	void avancer()=0;
 
 	void attaquer() {TimesAtk++;}
 	void etreAttaque (int atk) {

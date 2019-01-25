@@ -8,11 +8,13 @@ extern int MarkAllSolda;
 
 class Base{
 protected:
-	int HP = 100;
-	int OR = 8;
+	int HP;
+	int OR;
 	int Camp;
 public:
 	Base(int camp){
+		HP = 100;
+		OR = 8;
 		Camp = camp;
 	}
 	void CreatUnite(int flag){

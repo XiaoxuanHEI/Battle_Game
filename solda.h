@@ -15,7 +15,7 @@ public:
 			Post[11] = 1;
 		}
 	}
-	~Fantassin() {}
+	~Fantassin(){}
 
 	virtual	void avancer() {
 		if(Camp == 0) {
