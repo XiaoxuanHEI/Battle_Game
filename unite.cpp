@@ -1,24 +1,28 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
-extern int tour;
+extern int Tour;
 extern int Post[12]; // les 12 tions sont libres
 
 class Unite {
 protected:
+	string Nom;
 	int Prix;
 	int HP;
 	int ATK;
 	int Position;
 	int Porte[3];
-	int Camp;
+	int Camp;		//identifier de baseA ou baseB
 	int TimesAtk;
 
 public:
-	Unite(int prix,int hp, int atk) {
-		Camp = tour;
+	Unite(){}
+	Unite(string nom,int prix,int hp, int atk) {
+		Camp = Tour;
 		if(Camp == 0) {
 			if(Post[0] == 0) {
+				Nom = nom;
 				Position = 0;
 				Prix = prix;
 				HP = hp;
@@ -39,7 +43,7 @@ public:
 		}
 	}
 
-virtual	void avancer();
+	virtual	void avancer();
 
 	void attaquer() {TimesAtk++;}
 	void etreAttaque (int atk) {
@@ -54,5 +58,6 @@ virtual	void avancer();
 	int getHP() {return HP;}
 	int getATK() {return ATK;}
 	int getPosition() {return Position;}
-	~Unite() {}
+	string getNom() {return Nom;}
+	~Unite(){}
 };
