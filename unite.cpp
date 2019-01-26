@@ -29,6 +29,7 @@ Unite::Unite(string nom,int prix,int hp, int atk) {
 			Prix = prix;
 			HP = hp;
 			ATK = atk;
+			TimesAtk = 0;
 			}
 	else std::cerr << "No space!" << '\n';
 	}
@@ -58,6 +59,6 @@ void Unite::etreAttaque (int atk) {
 		HP = HP - atk;
 		if(HP <= 0){
 			AllSolda[Position] = NULL;
-			cout << "Unite" << Position << "est mort.."<<endl;
+			cout << "Unite " << Position << " est mort.."<<endl;
 		}
 	}

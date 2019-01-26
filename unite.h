@@ -25,6 +25,7 @@ public:
 	int getATK() {return ATK;}
 	int getPosition() {return Position;}
   int *getPorte() {return Porte;}
+  int getTimesATK() {return TimesAtk;}
 	string getNom() {return Nom;}
 	~Unite(){}
 };
