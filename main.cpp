@@ -30,21 +30,39 @@ string getSoldaType(int position);
 string getSoldaHp(int position);
 
 int main(int argc, char const *argv[]) {
-  for(Round = 1; Round <= 2; Round++){
+  for(Round = 1; Round <= 10; Round++){
     A->OR+=8;
     B->OR+=8;
     cout << "Tour " << Round << " START!" << endl;
     affiche();
-    cout <<Round<< " tour: joueur A:"<<endl;
-    cin >> FlagA;
-    A -> CreatUnite(FlagA);
-  //  cout << "!!!!!!!!!!!!!!!!!!!!!" << endl;
+    // cin >> FlagA;
+    if(Round == 1)
+    {
+      cout << "Joueur A creat un soldat:"<<endl;
+      A -> CreatUnite();
+      Tour = 1;
+      cout << "Joueur B creat un soldat:"<<endl;
+      B -> CreatUnite();
+      cout <<"Tour "<<Round<<" est fini!"<<endl;
+      cout << endl;
+      Tour = 0;
+      continue;
+    }
+    cout << endl;
+    cout <<Round<< " tour: joueur A actionne!"<<endl;
     actionTotal();
+    cout << "Joueur A creat un soldat:"<<endl;
+    A -> CreatUnite();
+    affiche();
     Tour = 1;
-    cout <<Round<< " tour: joueur B:"<<endl;
-    cin >> FlagB;
-    B -> CreatUnite(FlagB);
+    cout << endl;
+    cout <<Round<< " tour: joueur B actionne!"<<endl;
     actionTotal();
+    cout << "Joueur B creat un soldat:"<<endl;
+    B -> CreatUnite();
+    affiche();
+    cout <<"Tour "<<Round<<" est fini!"<<endl;
+    // cout << endl;
     Tour = 0;
     cout<<endl<<endl;
   }
@@ -155,6 +173,19 @@ void action1(){
           }
         }
       }
+      else{
+        int distance = 11 - (AllSoldaA[i] -> getPosition());
+      // cout<<"distance is "<<distance<<endl;
+        for(int j = 0; j < 3; j++)
+        {
+          if(distance == (AllSoldaA[i] -> getPorte())[j])
+          {
+            AllSoldaA[i] -> attaquer();
+            B -> etreAttaque(AllSoldaA[i] -> getATK());
+            // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
+          }
+        }
+      }
     }
   }
  //Tour = 1;
@@ -173,6 +204,19 @@ void action1(){
           {
             AllSoldaB[i] -> attaquer();
             AllSoldaA[markA - 1] -> etreAttaque(AllSoldaB[i] -> getATK());
+            // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
+          }
+        }
+      }
+      else{
+        int distance = (AllSoldaB[i] -> getPosition());
+      // cout<<"distance is "<<distance<<endl;
+        for(int j = 0; j < 3; j++)
+        {
+          if(distance == (AllSoldaB[i] -> getPorte())[j])
+          {
+            AllSoldaB[i] -> attaquer();
+            A -> etreAttaque(AllSoldaA[i] -> getATK());
             // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
           }
         }
