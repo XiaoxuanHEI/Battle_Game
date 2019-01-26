@@ -42,7 +42,7 @@ int main(int argc, char const *argv[]) {
   cout<<endl<<" jouer avec computer?  0 non / 1 oui   ";
   cin>>AImode;
 
-  for(Round = 1; Round <= 100; Round++){
+  for(Round = 1; Round <= 1000; Round++){
     A->OR+=8;
     B->OR+=8;
     affiche();
@@ -278,16 +278,19 @@ void action1(){
       }
     }
   }
-  if(Mode == 1)
+  if(Mode && Tour && AImode)
+  sleep(3);
+  else if(Mode == 1)
   {
   int c;
   cout<<endl;
   cout<<"Action1 est fini.   Countinuer? [ 8 pour quitter ] ";
-  // cin.ignore(1024,'\n');
-  // c = cin.get();
-  // if(c != '\n') exit(0);
-  sleep(3);
+  cin.ignore(1024,'\n');
+  c = cin.get();
+  if(c != '\n') exit(0);
   }
+
+
 //  Tour = 0;
 }
 
@@ -322,7 +325,9 @@ void action2(){
       }
     }
   }
-  if(Mode == 1)
+  if(Mode && Tour && AImode)
+  sleep(3);
+  else if(Mode == 1)
   {
   int c;
   cout<<endl;
@@ -457,7 +462,9 @@ void action3(){
      }
    }
  }
- if(Mode == 1)
+ if(Mode && Tour && AImode)
+ sleep(3);
+ else if(Mode == 1)
  {
  int c;
  cout<<endl;
