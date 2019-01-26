@@ -30,7 +30,7 @@ string getSoldaCamp(int position);
 string getSoldaHp(int position);
 
 int main(int argc, char const *argv[]) {
-  for(Round = 1; Round <= 10; Round++){
+  for(Round = 1; Round <= 100; Round++){
     A->OR+=8;
     B->OR+=8;
     cout << "Tour " << Round << " START!" << endl;
@@ -64,15 +64,17 @@ int main(int argc, char const *argv[]) {
     // cout << endl;
     Tour = 0;
     cout<<endl<<endl;
+    system("cls");
   }
   return 0;
 }
 
 
 void affiche(){
+  system("clear");
   cout<< "    |>                                                                                     <|    " <<endl;
   cout<< "    |                                                                                       |    " <<endl;
-  cout<< "{|||||||}                                                                               [^^^^^^^]" <<endl;
+  cout<< "{~~~~~~~}       ^       ^       ^       ^       ^       ^       ^       ^       ^       [^^^^^^^]" <<endl;
 
 
 
@@ -87,28 +89,32 @@ void affiche(){
   <<"\t"<<"|"<<getSoldaType(5)<<"\t"<<"|"<<getSoldaType(6)<<"\t"<<"|"<<getSoldaType(7)<<"\t"<<"|"<<getSoldaType(8)<<"\t"<<"|"<<getSoldaType(9)
   <<"\t"<<"|"<<getSoldaType(10)<<"\t"<<"|"<<getSoldaType(11)<<"\t"<<"|\t"<<'\n';
   cout << "|_______|_______|_______|_______|_______|_______|_______|_______|_______|_______|_______|_______|" <<endl;
-  cout << "|       |                                                                               |       |" <<endl;
-  cout << "|Base A\t"<<"|\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"|Base B\t"<<"|\t"<<'\n';
-  cout << "|HP:"<<A -> getHP()<<"\t"<<"|\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"|HP:"<<B -> getHP()<<"\t"<<"|\t"<<'\n';
-  cout << "|OR:"<<A -> getOR()<<"\t"<<"|\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"\t"<<"|OR:"<<B -> getOR()<<"\t"<<"|\t"<<'\n';
-  cout << "|_______|_______________________________________________________________________________|_______|" <<endl;
+  cout << "|       |-------------------------------------------------------------------------------|       |" <<endl;
+  cout << "|Base A\t"<<"|-------------------------------- <            > -------------------------------"<<"|Base B\t"<<"|\t"<<'\n';
+  cout << "|HP:"<<A -> getHP()<<"\t"<<"|-------------------------------- < AGE OF WAR > -------------------------------"<<"|HP:"<<B -> getHP()<<"\t"<<"|\t"<<'\n';
+  cout << "|OR:"<<A -> getOR()<<"\t"<<"|-------------------------------- <            > -------------------------------"<<"|OR:"<<B -> getOR()<<"\t"<<"|\t"<<'\n';
+  cout << "|||||||||-------------------------------------------------------------------------------|||||||||" <<endl;
 }
 
 string getSoldaType(int position){
   if(AllSolda[position] == NULL) return " ";
-  return AllSolda[position] -> getNom();
+  if(AllSolda[position] -> getCamp())
+  return "  " + AllSolda[position] -> getNom();
+  else return AllSolda[position] -> getNom();
 }
 
 string getSoldaCamp(int position){
   if(AllSolda[position] == NULL) return " ";
   if(AllSolda[position] -> getCamp())
-  return "B";
-  else return "A";
+  return "<--- B";
+  else return "A --->";
 }
 
 string getSoldaHp(int position){
   if(AllSolda[position] == NULL) return " ";
-  return to_string(AllSolda[position] -> getHP());
+  if(AllSolda[position] -> getCamp())
+  return "    " + to_string(AllSolda[position] -> getHP());
+  else return to_string(AllSolda[position] -> getHP());
 }
 
 void actionTotal(){
@@ -170,8 +176,19 @@ void action1(){
         {
           if(distance == (AllSoldaA[i] -> getPorte())[j])
           {
+            if((AllSoldaA[i] -> getNom() == "Cata") && distance != 4 )
+            {
+              if((AllSoldaB[1] != NULL) && ((AllSoldaB[1]-> getPosition() - AllSoldaA[i] ->getPosition()) == (distance + 1)))
+              {
+                AllSoldaA[i] -> attaquer();
+                AllSoldaB[0] -> etreAttaque(AllSoldaA[i]);
+                AllSoldaB[1] -> etreAttaque(AllSoldaA[i]);
+                break;
+              }
+            }
             AllSoldaA[i] -> attaquer();
             AllSoldaB[0] -> etreAttaque(AllSoldaA[i]);
+            break;
             // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
           }
         }
@@ -205,9 +222,20 @@ void action1(){
         {
           if(distance == (AllSoldaB[i] -> getPorte())[j])
           {
+            if((AllSoldaB[i] -> getNom() == "Cata") && distance != 4 )
+            {
+              if((AllSoldaA[markA-2] != NULL) && ((AllSoldaB[i] -> getPosition())-(AllSoldaA[markA-2]-> getPosition()) == (distance + 1)))
+              {
+                AllSoldaB[i] -> attaquer();
+                AllSoldaA[markA-1] -> etreAttaque(AllSoldaB[i]);
+                AllSoldaA[markA-2] -> etreAttaque(AllSoldaB[i]);
+                break;
+              }
+            }
             AllSoldaB[i] -> attaquer();
             AllSoldaA[markA - 1] -> etreAttaque(AllSoldaB[i]);
             // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
+            break;
           }
         }
       }
@@ -219,7 +247,7 @@ void action1(){
           if(distance == (AllSoldaB[i] -> getPorte())[j])
           {
             AllSoldaB[i] -> attaquer();
-            A -> etreAttaque(AllSoldaA[i]);
+            A -> etreAttaque(AllSoldaB[i]);
             // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
           }
         }
