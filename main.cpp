@@ -13,7 +13,7 @@ int markB = 0;
 
 // int MarkAllSolda = 0;
 int Tour = 0; // tour = 0, tour de A; tour = 1, tour de B;
-int Round = 2;
+int Round;
 int FlagA;
 int FlagB;
 Base *A = new Base(0);
@@ -30,18 +30,24 @@ string getSoldaType(int position);
 string getSoldaHp(int position);
 
 int main(int argc, char const *argv[]) {
-  affiche();
-  cout << "1 tour: Commencer par joueur A:"<<endl;
-  cin >> FlagA;
-  A -> CreatUnite(FlagA);
-  Tour = 1;
-  cout << "1 tour: joueur B:"<<endl;
-  cin >> FlagB;
-  B -> CreatUnite(FlagB);
-  Tour = 0;
-  affiche();
-  actionTotal();
-  actionTotal();
+  for(Round = 1; Round <= 2; Round++){
+    A->OR+=8;
+    B->OR+=8;
+    cout << "Tour " << Round << " START!" << endl;
+    affiche();
+    cout <<Round<< " tour: joueur A:"<<endl;
+    cin >> FlagA;
+    A -> CreatUnite(FlagA);
+  //  cout << "!!!!!!!!!!!!!!!!!!!!!" << endl;
+    actionTotal();
+    Tour = 1;
+    cout <<Round<< " tour: joueur B:"<<endl;
+    cin >> FlagB;
+    B -> CreatUnite(FlagB);
+    actionTotal();
+    Tour = 0;
+    cout<<endl<<endl;
+  }
   return 0;
 }
 
@@ -71,35 +77,35 @@ string getSoldaHp(int position){
 void actionTotal(){
   sort();
   action1();
-  cout<<"Resultat de Action1, premiere tour:"<<endl;
+  cout<<"Resultat de Action1: "<<endl;
   affiche();
   sort();
 
   action2();
-  cout<<"Resultat de Action2, premiere tour:"<<endl;
+  cout<<"Resultat de Action2: "<<endl;
   affiche();
   sort();
 
   action3();
-  cout<<"Resultat de Action3, premiere tour:"<<endl;
+  cout<<"Resultat de Action3: "<<endl;
   affiche();
 
-  preparer();
-  affiche();
+  // preparer();
+  // affiche();
 }
 
-void preparer(){
-  cout<<endl<<endl;
-  cout <<Round<< " tour: Commencer par joueur A:"<<endl;
-  cin >> FlagA;
-  A -> CreatUnite(FlagA);
-  Tour = 1;
-  cout <<Round<< " tour: joueur B:"<<endl;
-  cin >> FlagB;
-  B -> CreatUnite(FlagB);
-  Round++;
-  Tour = 0;
-}
+// void preparer(){
+//   cout<<endl<<endl;
+//   cout <<Round<< " tour: joueur A:"<<endl;
+//   cin >> FlagA;
+//   A -> CreatUnite(FlagA);
+//   Tour = 1;
+//   cout <<Round<< " tour: joueur B:"<<endl;
+//   cin >> FlagB;
+//   B -> CreatUnite(FlagB);
+//   Round++;
+//   Tour = 0;
+// }
 
 void sort(){
   for(int i = 0; i < 12; i++)
@@ -113,10 +119,10 @@ void sort(){
   for(int i = 0; i < 12; i++)
   {
     if(AllSolda[i] == NULL) continue;
-    if(AllSolda[i] -> getCamp() == 0)
+    else if(AllSolda[i] -> getCamp() == 0)
     {
       AllSoldaA[markA] = AllSolda[i];
-      // cout<<"A0  "<<AllSoldaA[0] -> getPosition()<<endl;
+       //cout<<"A0  "<<AllSoldaA[0] -> getPosition()<<endl;
       markA++;
     }
     else if(AllSolda[i] -> getCamp() == 1)
@@ -134,42 +140,46 @@ void action1(){
   {
     for(int i = 0; i < markA; i++)
     {
-      // cout<<AllSoldaA[0] -> getPosition()<<endl;
+       //cout<<AllSoldaA[0] -> getPosition()<<endl;
       // cout<<AllSoldaB[0] -> getPosition()<<endl;
-      int distance = (AllSoldaB[0] -> getPosition()) - (AllSoldaA[i] -> getPosition());
+      if(AllSoldaB[0] != NULL){
+        int distance = (AllSoldaB[0] -> getPosition()) - (AllSoldaA[i] -> getPosition());
       // cout<<"distance is "<<distance<<endl;
-      for(int j = 0; j < 3; j++)
-      {
-        if(distance == (AllSoldaA[i] -> getPorte())[j])
+        for(int j = 0; j < 3; j++)
         {
-          AllSoldaA[i] -> attaquer();
-          AllSoldaB[0] -> etreAttaque(AllSoldaA[i] -> getATK());
-          // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
+          if(distance == (AllSoldaA[i] -> getPorte())[j])
+          {
+            AllSoldaA[i] -> attaquer();
+            AllSoldaB[0] -> etreAttaque(AllSoldaA[i] -> getATK());
+            // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
+          }
         }
       }
     }
   }
- Tour = 1;
+ //Tour = 1;
   if(Tour == 1)
   {
     for(int i = markB - 1; i >= 0; i--)
     {
       // cout<<AllSoldaA[0] -> getPosition()<<endl;
       // cout<<AllSoldaB[0] -> getPosition()<<endl;
-      int distance = (AllSoldaB[i] -> getPosition()) - (AllSoldaA[markA - 1] -> getPosition());
+      if(AllSoldaA[0] != NULL) {
+        int distance = (AllSoldaB[i] -> getPosition()) - (AllSoldaA[markA - 1] -> getPosition());
       // cout<<"distance is "<<distance<<endl;
-      for(int j = 0; j < 3; j++)
-      {
-        if(distance == (AllSoldaB[i] -> getPorte())[j])
+        for(int j = 0; j < 3; j++)
         {
-          AllSoldaB[i] -> attaquer();
-          AllSoldaA[markA - 1] -> etreAttaque(AllSoldaB[i] -> getATK());
-          // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
+          if(distance == (AllSoldaB[i] -> getPorte())[j])
+          {
+            AllSoldaB[i] -> attaquer();
+            AllSoldaA[markA - 1] -> etreAttaque(AllSoldaB[i] -> getATK());
+            // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
+          }
         }
       }
     }
   }
-  Tour = 0;
+//  Tour = 0;
 }
 
 void action2(){
@@ -182,7 +192,7 @@ void action2(){
       AllSoldaA[i] -> avancer();
     }
   }
-  Tour = 1;
+//  Tour = 1;
 
   if(Tour == 1)
   {
@@ -193,7 +203,7 @@ void action2(){
       AllSoldaB[i] -> avancer();
     }
   }
-  Tour = 0;
+//  Tour = 0;
 }
 
 void action3(){
@@ -208,15 +218,17 @@ void action3(){
       {
         if(AllSoldaA[i] -> getTimesATK() == 0)
         {
-          int distance = (AllSoldaB[0] -> getPosition()) - (AllSoldaA[i] -> getPosition());
+          if(AllSoldaB[0] != NULL) {
+            int distance = (AllSoldaB[0] -> getPosition()) - (AllSoldaA[i] -> getPosition());
           // cout<<"distance is "<<distance<<endl;
-          for(int j = 0; j < 3; j++)
-          {
-            if(distance == (AllSoldaA[i] -> getPorte())[j])
+            for(int j = 0; j < 3; j++)
             {
-              AllSoldaA[i] -> attaquer();
-              AllSoldaB[0] -> etreAttaque(AllSoldaA[i] -> getATK());
-              // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
+              if(distance == (AllSoldaA[i] -> getPorte())[j])
+              {
+                AllSoldaA[i] -> attaquer();
+                AllSoldaB[0] -> etreAttaque(AllSoldaA[i] -> getATK());
+                // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
+              }
             }
           }
         }
@@ -231,7 +243,7 @@ void action3(){
     }
   }
 
- Tour = 1;
+// Tour = 1;
 
  if(Tour == 1)
  {
@@ -243,15 +255,17 @@ void action3(){
      {
        if(AllSoldaB[i] -> getTimesATK() == 0)
        {
-         int distance = (AllSoldaB[i] -> getPosition()) - (AllSoldaA[markA-1] -> getPosition());
+         if(AllSoldaA[0] != NULL) {
+          int distance = (AllSoldaB[i] -> getPosition()) - (AllSoldaA[markA-1] -> getPosition());
          // cout<<"distance is "<<distance<<endl;
-         for(int j = 0; j < 3; j++)
-         {
-           if(distance == (AllSoldaB[i] -> getPorte())[j])
+           for(int j = 0; j < 3; j++)
            {
-             AllSoldaB[i] -> attaquer();
-             AllSoldaA[markA-1] -> etreAttaque(AllSoldaB[i] -> getATK());
-             // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
+             if(distance == (AllSoldaB[i] -> getPorte())[j])
+             {
+               AllSoldaB[i] -> attaquer();
+               AllSoldaA[markA-1] -> etreAttaque(AllSoldaB[i] -> getATK());
+               // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
+             }
            }
          }
        }
@@ -265,5 +279,5 @@ void action3(){
      }
    }
  }
-Tour = 0;
+//Tour = 0;
 }
