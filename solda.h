@@ -10,6 +10,20 @@ public:
 		Porte[2] = 12;
 	}
 	~Fantassin() {}
+	void SuperSolda() {
+		Nom = "Super";
+	}
+	virtual void etreAttaque (Unite* u) {
+			HP = HP - u->getATK();
+			if(HP <= 0){
+				if(u->getNom() == "Fant") {
+					Fantassin* f = (Fantassin*) u;
+					f->SuperSolda();
+				}
+				AllSolda[Position] = NULL;
+				cout << "Unite " << Position << " est mort.."<<endl;
+			}
+		}
 };
 
 class Archer: public Unite {

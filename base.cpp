@@ -164,8 +164,8 @@ LabelB: FlagA = 0;
 		}
 	}
 
-	void etreAttaque(int atk){
-		HP = HP - atk;
+	void etreAttaque(Unite* u){
+		HP = HP - u->getATK();
 		if(HP <= 0){
 			HP = 0;
 			cout<<"Cette base est detruit.."<<endl;

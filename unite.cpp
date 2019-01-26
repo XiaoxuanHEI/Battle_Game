@@ -30,29 +30,35 @@ Unite::Unite(string nom,int prix,int hp, int atk) {
 }
 
 void Unite::avancer() {
-		if(Camp == 0) {
-			if(AllSolda[Position+1] == NULL){
-			 AllSolda[Position] = NULL;
-				Position ++;
-			 AllSolda[Position] = this;
-			}
-			else std::cerr << "You can't move forward!" << '\n';
+	if(Camp == 0) {
+		if(AllSolda[Position+1] == NULL){
+		 AllSolda[Position] = NULL;
+			Position ++;
+		 AllSolda[Position] = this;
 		}
-		if(Camp == 1) {
-			if(AllSolda[Position-1] == NULL) {
-			 AllSolda[Position] = NULL;
-				Position --;
-			 AllSolda[Position] = this;
-			}
-			else std::cerr << "You can't move forward!" << '\n';
-		}
+		else std::cerr << "You can't move forward!" << '\n';
 	}
+	if(Camp == 1) {
+		if(AllSolda[Position-1] == NULL) {
+		 AllSolda[Position] = NULL;
+			Position --;
+		 AllSolda[Position] = this;
+		}
+		else std::cerr << "You can't move forward!" << '\n';
+	}
+}
 
 void Unite::attaquer() {TimesAtk = 1;}
-void Unite::etreAttaque (int atk) {
-		HP = HP - atk;
-		if(HP <= 0){
-			AllSolda[Position] = NULL;
-			cout << "Unite " << Position << " est mort.."<<endl;
-		}
+void Unite::etreAttaque (Unite* u) {
+	HP = HP - u->getATK();
+	if(HP <= 0){
+		AllSolda[Position] = NULL;
+		cout << "Unite " << Position << " est mort.."<<endl;
 	}
+}
+
+void Unite::detruit() {
+	HP = 0;
+	AllSolda[Position] = NULL;
+	cout << "Unite " << Position << " est mort.."<<endl;
+}

@@ -19,7 +19,8 @@ public:
 	void avancer();
 	void attaquer();
   void setTimesATK(){TimesAtk = 0;}
-	void etreAttaque (int atk);
+	virtual void etreAttaque (Unite* u);
+	void detruit();
   int getCamp() {return Camp;}
 	int getPrix() {return Prix;}
 	int getHP() {return HP;}
