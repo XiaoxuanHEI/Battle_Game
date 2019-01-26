@@ -1,6 +1,9 @@
-#include "unite.cpp"
+#include <iostream>
+#include "unite.h"
 
-// extern Unite *AllSolda[12];
+using namespace std;
+
+extern Unite *AllSolda[12];
 
 class Fantassin: public Unite {
 public:
@@ -21,7 +24,14 @@ public:
 					f->SuperSolda();
 				}
 				AllSolda[Position] = NULL;
-				cout << "Unite " << Position << " est mort.."<<endl;
+				if (Camp) {
+					cout << "Unité " << Position <<" Fantassin de B est morte." << endl;
+					A->OR += (Prix/2);
+				}
+				else	{
+					cout << "Unité " << Position << " Fantassin de A est morte." << endl;
+					B->OR += (Prix/2);
+				}
 			}
 		}
 };

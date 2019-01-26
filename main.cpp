@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
+#include <unistd.h>
+#include "unite.cpp"
 #include "base.cpp"
+
 using namespace std;
 
 // int Post[12] = {0};
@@ -12,6 +15,9 @@ int markA = 0;
 int markB = 0;
 
 int Tour = 0; // tour = 0, tour de A; tour = 1, tour de B;
+int Mode = 0; // mode rapide 0 ou mode precis 1.
+int AImode = 0; // mode joueur vs joueur 0 ou joueur vs computer 1;
+
 int Round;
 int FlagA;
 int FlagB;
@@ -19,6 +25,7 @@ Base *A = new Base(0);
 Base *B = new Base(1);
 
 void affiche();
+void gameover();
 void sort();
 void preparer();
 void actionTotal();
@@ -30,41 +37,43 @@ string getSoldaCamp(int position);
 string getSoldaHp(int position);
 
 int main(int argc, char const *argv[]) {
+  cout<<"mode rapide ou mode precis?  0 rapide / 1 precis   ";
+  cin>>Mode;
+  cout<<endl<<" jouer avec computer?  0 non / 1 oui   ";
+  cin>>AImode;
+
   for(Round = 1; Round <= 100; Round++){
     A->OR+=8;
     B->OR+=8;
-    cout << "Tour " << Round << " START!" << endl;
     affiche();
     if(Round == 1)
     {
-      cout << "Joueur A creat un soldat: (1.Fantassin 2.Archer 3.Catapulte 0.Pass   [ 8.Qitter ce jeu ])"<<endl;
+      cout <<endl<< "Joueur A creat un soldat: (1.Fantassin 2.Archer 3.Catapulte 0.Pass   [ 8.Qitter ce jeu ] )   ";
       A -> CreatUnite();
       Tour = 1;
-      cout << "Joueur B creat un soldat: (1.Fantassin 2.Archer 3.Catapulte 0.Pass   [ 8.Qitter ce jeu ])"<<endl;
+      cout <<endl<< "Joueur B creat un soldat: (1.Fantassin 2.Archer 3.Catapulte 0.Pass   [ 8.Qitter ce jeu ] )   ";
       B -> CreatUnite();
-      cout <<"Tour "<<Round<<" est fini!"<<endl;
       cout << endl;
       Tour = 0;
       continue;
     }
-    cout << endl;
-    cout <<Round<< " tour: joueur A actionne!"<<endl;
+    // cout << endl;
+    cout <<endl<<"Tour "<<(Round-1)<<" est fini!"<<endl<<endl;
+    cout << "Tour "<<Round<< " joueur A actionne!"<<endl;
     actionTotal();
-    cout << "Joueur A creat un soldat: (1.Fantassin 2.Archer 3.Catapulte 0.Pass   [ 8.Qitter ce jeu ])"<<endl;
+    cout <<endl<< "Joueur A creat un soldat: (1.Fantassin 2.Archer 3.Catapulte 0.Pass   [ 8.Qitter ce jeu ] )   ";
     A -> CreatUnite();
     affiche();
     Tour = 1;
     cout << endl;
-    cout <<Round<< " tour: joueur B actionne!"<<endl;
+    cout <<"Tour "<<Round<<" joueur B actionne!"<<endl;
     actionTotal();
-    cout << "Joueur B creat un soldat: (1.Fantassin 2.Archer 3.Catapulte 0.Pass   [ 8.Qitter ce jeu ])"<<endl;
+    cout <<endl<< "Joueur B creat un soldat: (1.Fantassin 2.Archer 3.Catapulte 0.Pass   [ 8.Qitter ce jeu ] )   ";
     B -> CreatUnite();
     affiche();
-    cout <<"Tour "<<Round<<" est fini!"<<endl;
     // cout << endl;
     Tour = 0;
     cout<<endl<<endl;
-    system("cls");
   }
   return 0;
 }
@@ -72,6 +81,11 @@ int main(int argc, char const *argv[]) {
 
 void affiche(){
   system("clear");
+  if(Mode == 0)
+  cout<< "Mode rapide:                                  Tour " << Round << endl;
+  else
+  cout<< "Mode precis:                                  Tour " << Round << endl;
+
   cout<< "    |>                                                                                     <|    " <<endl;
   cout<< "    |                                                                                       |    " <<endl;
   cout<< "{~~~~~~~}       ^       ^       ^       ^       ^       ^       ^       ^       ^       [^^^^^^^]" <<endl;
@@ -99,7 +113,7 @@ void affiche(){
 string getSoldaType(int position){
   if(AllSolda[position] == NULL) return " ";
   if(AllSolda[position] -> getCamp())
-  return "  " + AllSolda[position] -> getNom();
+  return " " + AllSolda[position] -> getNom();
   else return AllSolda[position] -> getNom();
 }
 
@@ -113,7 +127,7 @@ string getSoldaCamp(int position){
 string getSoldaHp(int position){
   if(AllSolda[position] == NULL) return " ";
   if(AllSolda[position] -> getCamp())
-  return "    " + to_string(AllSolda[position] -> getHP());
+  return "   " + to_string(AllSolda[position] -> getHP());
   else return to_string(AllSolda[position] -> getHP());
 }
 
@@ -202,6 +216,11 @@ void action1(){
           {
             AllSoldaA[i] -> attaquer();
             B -> etreAttaque(AllSoldaA[i]);
+            if(B -> getHP() <= 0)
+            {
+              B -> setHP();
+              gameover();
+            }
             // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
           }
         }
@@ -248,11 +267,26 @@ void action1(){
           {
             AllSoldaB[i] -> attaquer();
             A -> etreAttaque(AllSoldaB[i]);
+            if(A -> getHP() <= 0)
+            {
+              A -> setHP();
+              gameover();
+            }
             // cout<<"hp "<<AllSoldaB[0]->getHP()<<endl;
           }
         }
       }
     }
+  }
+  if(Mode == 1)
+  {
+  int c;
+  cout<<endl;
+  cout<<"Action1 est fini.   Countinuer? [ 8 pour quitter ] ";
+  // cin.ignore(1024,'\n');
+  // c = cin.get();
+  // if(c != '\n') exit(0);
+  sleep(3);
   }
 //  Tour = 0;
 }
@@ -287,6 +321,15 @@ void action2(){
         markB--;
       }
     }
+  }
+  if(Mode == 1)
+  {
+  int c;
+  cout<<endl;
+  cout<<"Action2 est fini.   Countinuer? [ 8 pour quitter ] ";
+  // cin.ignore(1024,'\n');
+  c = cin.get();
+  if(c != '\n') exit(0);
   }
 //  Tour = 0;
 }
@@ -414,5 +457,26 @@ void action3(){
      }
    }
  }
+ if(Mode == 1)
+ {
+ int c;
+ cout<<endl;
+ cout<<"Action3 est fini.   Countinuer? [ 8 pour quitter ] ";
+ // cin.ignore(1024,'\n');
+ c = cin.get();
+ if(c != '\n') exit(0);
+ }
 //Tour = 0;
+}
+
+void gameover(){
+  system("clear");
+  affiche();
+  if(Tour)
+  {
+    cout<<endl<<"Joueur B est ganie!!"<<endl;
+  }
+  else cout<<endl<<"Joueur A est ganie!!"<<endl;
+  cout<<endl;
+  exit(0);
 }

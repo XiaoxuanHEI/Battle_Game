@@ -1,3 +1,6 @@
+#ifndef _UNITE_H_
+#define _UNITE_H_
+
 #include <iostream>
 #include <string>
 using namespace std;
@@ -31,3 +34,5 @@ public:
 	string getNom() {return Nom;}
 	~Unite(){}
 };
+
+#endif
