@@ -10,7 +10,6 @@ extern Unite *AllSolda[12];
 Unite::Unite(string nom,int prix,int hp, int atk) {
 	Camp = Tour;
 	if(Camp == 0) {
-		if(AllSolda[0] == NULL) {
 			AllSolda[0] = this;
 			Nom = nom;
 			Position = 0;
@@ -18,11 +17,8 @@ Unite::Unite(string nom,int prix,int hp, int atk) {
 			HP = hp;
 			ATK = atk;
 			TimesAtk = 0;
-		}
-		else std::cerr << "No space!" << '\n';
 	}
 	if(Camp == 1) {
-		if(AllSolda[11] == NULL) {
 			Nom = nom;
 			AllSolda[11] = this;
 			Position = 11;
@@ -30,8 +26,6 @@ Unite::Unite(string nom,int prix,int hp, int atk) {
 			HP = hp;
 			ATK = atk;
 			TimesAtk = 0;
-			}
-	else std::cerr << "No space!" << '\n';
 	}
 }
 

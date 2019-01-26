@@ -13,6 +13,7 @@ int markB = 0;
 
 // int MarkAllSolda = 0;
 int Tour = 0; // tour = 0, tour de A; tour = 1, tour de B;
+int Round = 2;
 int FlagA;
 int FlagB;
 Base *A = new Base(0);
@@ -20,6 +21,7 @@ Base *B = new Base(1);
 
 void affiche();
 void sort();
+void preparer();
 void actionTotal();
 void action1();
 void action2();
@@ -29,18 +31,20 @@ string getSoldaHp(int position);
 
 int main(int argc, char const *argv[]) {
   affiche();
-  cout << "Premiere tour: Commencer par joueur A:"<<endl;
+  cout << "1 tour: Commencer par joueur A:"<<endl;
   cin >> FlagA;
   A -> CreatUnite(FlagA);
   Tour = 1;
-  cout << "Premiere tour: joueur B:"<<endl;
+  cout << "1 tour: joueur B:"<<endl;
   cin >> FlagB;
   B -> CreatUnite(FlagB);
   Tour = 0;
   affiche();
   actionTotal();
+  actionTotal();
   return 0;
 }
+
 
 void affiche(){
   cout << "|A\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|B\t"<<"|\t"<<'\n';
@@ -79,6 +83,22 @@ void actionTotal(){
   action3();
   cout<<"Resultat de Action3, premiere tour:"<<endl;
   affiche();
+
+  preparer();
+  affiche();
+}
+
+void preparer(){
+  cout<<endl<<endl;
+  cout <<Round<< " tour: Commencer par joueur A:"<<endl;
+  cin >> FlagA;
+  A -> CreatUnite(FlagA);
+  Tour = 1;
+  cout <<Round<< " tour: joueur B:"<<endl;
+  cin >> FlagB;
+  B -> CreatUnite(FlagB);
+  Round++;
+  Tour = 0;
 }
 
 void sort(){
@@ -157,6 +177,8 @@ void action2(){
   {
     for(int i = markA-1; i >= 0; i--)
     {
+      if(AllSoldaA[i] -> getNom() == "Cata")
+      continue;
       AllSoldaA[i] -> avancer();
     }
   }
@@ -166,6 +188,8 @@ void action2(){
   {
     for(int i = 0; i < markB; i++)
     {
+      if(AllSoldaB[i] -> getNom() == "Cata")
+      continue;
       AllSoldaB[i] -> avancer();
     }
   }
@@ -177,6 +201,7 @@ void action3(){
   {
     for(int i = markA-1; i >=0; i--)
     {
+      // cout<<"hahahahha"<<endl;
       // cout<<AllSoldaA[0] -> getPosition()<<endl;
       // cout<<AllSoldaB[0] -> getPosition()<<endl;
       if(AllSoldaA[i] -> getNom() == "Fant")
@@ -205,11 +230,12 @@ void action3(){
       }
     }
   }
+
  Tour = 1;
 
  if(Tour == 1)
  {
-   for(int i = 0; i <= markB; i++)
+   for(int i = 0; i < markB; i++)
    {
      // cout<<AllSoldaA[0] -> getPosition()<<endl;
      // cout<<AllSoldaB[0] -> getPosition()<<endl;
