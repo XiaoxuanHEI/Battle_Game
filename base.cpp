@@ -21,7 +21,19 @@ public:
 	void CreatUnite(){
 		if(Tour == 0){
 			if(AllSolda[0] == NULL) {
-LabelA:	cin>>FlagA;
+LabelA:	FlagA = 0;
+				FlagB = 0;
+				cin>>FlagA;
+				if(cin.fail())
+				{
+					cout<<"Entrer illegal!!"<<endl;
+					cout<<"Entrer 1,2,3 ou 0:"<<endl;
+					cin.clear();
+					cin.sync();
+					cin.ignore(1024,'\n');
+					goto LabelA;
+				}
+				else{
 				switch(FlagA)
 				{
 				case 0:
@@ -35,6 +47,7 @@ LabelA:	cin>>FlagA;
 					{
 						cout << "Or pas suffisant pour un Fantassin!!" << endl;
 						cout << "Choisir un autre type de solda:"<<endl;
+							// cout << FlagA<<endl;
 						goto LabelA;
 					}
 					break;
@@ -48,6 +61,7 @@ LabelA:	cin>>FlagA;
 					{
 						cout << "Or pas suffisant pour un Archer!!" << endl;
 						cout << "Choisir un autre type de solda:"<<endl;
+						// cout << FlagA<<endl;
 						goto LabelA;
 					}
 					break;
@@ -59,18 +73,38 @@ LabelA:	cin>>FlagA;
 					}
 					else
 					{
-						cout << "Or pas suffisant pour un Cata!!" << endl;
+						cout << "Or pas suffisant pour un Catapulte!!" << endl;
 						cout << "Choisir un autre type de solda:"<<endl;
 						goto LabelA;
 					}
+					break;
+				case 8:
+					exit(0);
+				default:
+					cout <<"Il n'existe pas ce type!!"<<endl;
+					cout << "Choisir un autre type de solda:"<<endl;
+					goto LabelA;
 				}
+			}
 			}
 			else cout<<"Pas de place pour A!!"<<endl;
 		}
 
 		if(Tour == 1){
 			if(AllSolda[11] == NULL) {
-LabelB: cin>>FlagB;
+LabelB: FlagA = 0;
+				FlagB = 0;
+				cin>>FlagB;
+				if(cin.fail())
+				{
+					cout<<"Entrer illegal!!"<<endl;
+					cout<<"Entrer 1,2,3 ou 0:"<<endl;
+					cin.clear();
+					cin.sync();
+					cin.ignore(1024,'\n');
+					goto LabelB;
+				}
+				else{
 				switch(FlagB)
 				{
 				case 0:
@@ -82,8 +116,12 @@ LabelB: cin>>FlagB;
 					}
 					else
 					{
-						cout << "Or pas suffisant!!" << endl;
+						// cout << "Or pas suffisant pour un Fantassin!!" << endl;
+						cout << Tour<< endl;
+						cout << FlagA<<endl;
+						cout << FlagB<<endl<<endl<<endl;
 					 	cout << "Choisir un autre type de solda:"<<endl;
+						// FlagB = 0;
 						goto LabelB;
 					}
 					break;
@@ -95,12 +133,12 @@ LabelB: cin>>FlagB;
 					}
 					else
 					{
-						cout << "Or pas suffisant!!" << endl;
+						cout << "Or pas suffisant pour un Archer!!" << endl;
 					 	cout << "Choisir un autre type de solda:"<<endl;
 						goto LabelB;
 					}
 					break;
-					
+
 				case 3:
 					if(OR>=20) {
 						AllSolda[11] = new Catapulte();
@@ -108,11 +146,19 @@ LabelB: cin>>FlagB;
 					}
 					else
 					{
-						cout << "Or pas suffisant!!" << endl;
+						cout << "Or pas suffisant pour un Catapulte!!" << endl;
 					 	cout << "Choisir un autre type de solda:"<<endl;
 						goto LabelB;
 					}
+					break;
+				case 8:
+					exit(0);
+				default:
+					cout <<"Il n'existe pas ce type!!"<<endl;
+					cout << "Choisir un autre type de solda:"<<endl;
+					goto LabelB;
 				}
+			}
 			}
 		else cout<<"Pas de place pour B!!"<<endl;
 		}

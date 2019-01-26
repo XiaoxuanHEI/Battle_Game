@@ -27,6 +27,7 @@ void action1();
 void action2();
 void action3();
 string getSoldaType(int position);
+string getSoldaCamp(int position);
 string getSoldaHp(int position);
 
 int main(int argc, char const *argv[]) {
@@ -38,10 +39,10 @@ int main(int argc, char const *argv[]) {
     // cin >> FlagA;
     if(Round == 1)
     {
-      cout << "Joueur A creat un soldat:"<<endl;
+      cout << "Joueur A creat un soldat: (1.Fantassin 2.Archer 3.Catapulte 0.Pass   [ 8.Qitter ce jeu ])"<<endl;
       A -> CreatUnite();
       Tour = 1;
-      cout << "Joueur B creat un soldat:"<<endl;
+      cout << "Joueur B creat un soldat: (1.Fantassin 2.Archer 3.Catapulte 0.Pass   [ 8.Qitter ce jeu ])"<<endl;
       B -> CreatUnite();
       cout <<"Tour "<<Round<<" est fini!"<<endl;
       cout << endl;
@@ -51,14 +52,14 @@ int main(int argc, char const *argv[]) {
     cout << endl;
     cout <<Round<< " tour: joueur A actionne!"<<endl;
     actionTotal();
-    cout << "Joueur A creat un soldat:"<<endl;
+    cout << "Joueur A creat un soldat: (1.Fantassin 2.Archer 3.Catapulte 0.Pass   [ 8.Qitter ce jeu ])"<<endl;
     A -> CreatUnite();
     affiche();
     Tour = 1;
     cout << endl;
     cout <<Round<< " tour: joueur B actionne!"<<endl;
     actionTotal();
-    cout << "Joueur B creat un soldat:"<<endl;
+    cout << "Joueur B creat un soldat: (1.Fantassin 2.Archer 3.Catapulte 0.Pass   [ 8.Qitter ce jeu ])"<<endl;
     B -> CreatUnite();
     affiche();
     cout <<"Tour "<<Round<<" est fini!"<<endl;
@@ -71,12 +72,17 @@ int main(int argc, char const *argv[]) {
 
 
 void affiche(){
-  cout << "|A\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|B\t"<<"|\t"<<'\n';
+  cout << "|Base A\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|Base B\t"<<"|\t"<<'\n';
   cout << "|HP:"<<A -> getHP()<<"\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|HP:"<<B -> getHP()<<"\t"<<"|\t"<<'\n';
   cout << "|OR:"<<A -> getOR()<<"\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|\t"<<"|OR:"<<B -> getOR()<<"\t"<<"|\t"<<'\n';
   cout << "|"<<getSoldaType(0)<<"\t"<<"|"<<getSoldaType(1)<<"\t"<<"|"<<getSoldaType(2)<<"\t"<<"|"<<getSoldaType(3)<<"\t"<<"|"<<getSoldaType(4)
   <<"\t"<<"|"<<getSoldaType(5)<<"\t"<<"|"<<getSoldaType(6)<<"\t"<<"|"<<getSoldaType(7)<<"\t"<<"|"<<getSoldaType(8)<<"\t"<<"|"<<getSoldaType(9)
   <<"\t"<<"|"<<getSoldaType(10)<<"\t"<<"|"<<getSoldaType(11)<<"\t"<<"|\t"<<'\n';
+
+  cout << "|"<<getSoldaCamp(0)<<"\t"<<"|"<<getSoldaCamp(1)<<"\t"<<"|"<<getSoldaCamp(2)<<"\t"<<"|"<<getSoldaCamp(3)<<"\t"<<"|"<<getSoldaCamp(4)
+  <<"\t"<<"|"<<getSoldaCamp(5)<<"\t"<<"|"<<getSoldaCamp(6)<<"\t"<<"|"<<getSoldaCamp(7)<<"\t"<<"|"<<getSoldaCamp(8)<<"\t"<<"|"<<getSoldaCamp(9)
+  <<"\t"<<"|"<<getSoldaCamp(10)<<"\t"<<"|"<<getSoldaCamp(11)<<"\t"<<"|\t"<<'\n';
+
   cout << "|"<<getSoldaHp(0)<<"\t"<<"|"<<getSoldaHp(1)<<"\t"<<"|"<<getSoldaHp(2)<<"\t"<<"|"<<getSoldaHp(3)<<"\t"<<"|"<<getSoldaHp(4)
   <<"\t"<<"|"<<getSoldaHp(5)<<"\t"<<"|"<<getSoldaHp(6)<<"\t"<<"|"<<getSoldaHp(7)<<"\t"<<"|"<<getSoldaHp(8)<<"\t"<<"|"<<getSoldaHp(9)
   <<"\t"<<"|"<<getSoldaHp(10)<<"\t"<<"|"<<getSoldaHp(11)<<"\t"<<"|\t"<<'\n';
@@ -85,6 +91,13 @@ void affiche(){
 string getSoldaType(int position){
   if(AllSolda[position] == NULL) return " ";
   return AllSolda[position] -> getNom();
+}
+
+string getSoldaCamp(int position){
+  if(AllSolda[position] == NULL) return " ";
+  if(AllSolda[position] -> getCamp())
+  return "B";
+  else return "A";
 }
 
 string getSoldaHp(int position){
@@ -234,6 +247,11 @@ void action2(){
       if(AllSoldaA[i] -> getNom() == "Cata")
       continue;
       AllSoldaA[i] -> avancer();
+      if(AllSoldaA[i]->getPosition()==11) {
+        AllSoldaA[i]->etreAttaque(10000);
+        AllSoldaA[i] = NULL;
+        markA--;
+      }
     }
   }
 //  Tour = 1;
@@ -245,6 +263,11 @@ void action2(){
       if(AllSoldaB[i] -> getNom() == "Cata")
       continue;
       AllSoldaB[i] -> avancer();
+      if(AllSoldaB[i]->getPosition()==0) {
+        AllSoldaB[i]->etreAttaque(10000);
+        AllSoldaB[i] = NULL;
+        markB--;
+      }
     }
   }
 //  Tour = 0;
@@ -276,12 +299,20 @@ void action3(){
             }
           }
         }
+        else
+        {
+          AllSoldaA[i] -> setTimesATK();
+        }
       }
       else if(AllSoldaA[i] -> getNom() == "Cata")
       {
         if(AllSoldaA[i] -> getTimesATK() == 0)
         {
           AllSoldaA[i] -> avancer();
+        }
+        else
+        {
+          AllSoldaA[i] -> setTimesATK();
         }
       }
     }
@@ -313,12 +344,20 @@ void action3(){
            }
          }
        }
+       else
+       {
+         AllSoldaB[i] -> setTimesATK();
+       }
      }
      else if(AllSoldaB[i] -> getNom() == "Cata")
      {
        if(AllSoldaB[i] -> getTimesATK() == 0)
        {
          AllSoldaB[i] -> avancer();
+       }
+       else
+       {
+         AllSoldaB[i] -> setTimesATK();
        }
      }
    }

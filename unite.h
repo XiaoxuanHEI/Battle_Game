@@ -18,6 +18,7 @@ public:
 	Unite(string nom,int prix,int hp, int atk);
 	void avancer();
 	void attaquer();
+  void setTimesATK(){TimesAtk = 0;}
 	void etreAttaque (int atk);
   int getCamp() {return Camp;}
 	int getPrix() {return Prix;}
