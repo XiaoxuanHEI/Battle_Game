@@ -3,6 +3,7 @@
 #include <time.h>
 #include "base.h"
 #include "solda.h"
+#include "saveload.cpp"
 
 #define MIN 0
 #define MAX 3
@@ -79,7 +80,19 @@ LabelA:
 					}
 					break;
 				case 8:
-					exit(0);
+					int flag;
+			label1:
+					cout << "Vous voulez enregistrer?  0 Non / 1 Oui   ";
+					cin >> flag;
+					switch (flag) {
+						case 0:
+							exit(0);
+						case 1:
+							save();
+							exit(0);
+						default:
+							goto label1;
+					}
 				default:
 					cout << "Il n'existe pas ce type!!" << endl;
 					cout << "Choisir un autre type de solda:" << endl;
@@ -148,7 +161,19 @@ LabelB:
 					}
 					break;
 				case 8:
-					exit(0);
+				int flag;
+				label2:
+						cout << "Vous voulez enregistrer?  0 Non / 1 Oui   ";
+						cin >> flag;
+						switch (flag) {
+							case 0:
+								exit(0);
+							case 1:
+								save();
+								exit(0);
+							default:
+								goto label2;
+						}
 				default:
 					cout << "Il n'existe pas ce type!" << endl;
 					cout << "Choisir un autre type de soldat:" << endl;

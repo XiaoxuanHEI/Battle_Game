@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="GBK" ?>
+<root mode="0" AImode="1" round="4" tour="0">
+    <BaseA HP="100" OR="10" />
+    <BaseB HP="100" OR="18" />
+    <soldier HP="10" camp="0" position="1">
+        <name>Fantassin</name>
+    </soldier>
+    <soldier HP="10" camp="0" position="2">
+        <name>Fantassin</name>
+    </soldier>
+    <soldier HP="10" camp="0" position="3">
+        <name>Fantassin</name>
+    </soldier>
+    <soldier HP="8" camp="1" position="9">
+        <name>Archer</name>
+    </soldier>
+    <soldier HP="10" camp="1" position="11">
+        <name>Fantassin</name>
+    </soldier>
+</root>

@@ -22,6 +22,15 @@ Unite(){
 Unite(string nom,int prix,int hp, int atk);
 void avancer();
 void attaquer();
+void setHP(int hp) {
+	HP = hp;
+}
+void setCamp(int camp) {
+	Camp = camp;
+}
+void setPosition(int i) {
+	Position = i;
+}
 void setTimesATK(){
 	TimesAtk = 0;
 }

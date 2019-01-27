@@ -1,3 +1,5 @@
+#ifndef _SOLDA_H_
+#define _SOLDA_H_
 #include <iostream>
 #include "unite.h"
 
@@ -12,11 +14,24 @@ Fantassin() : Unite("Fant",10,10,4) {
 	Porte[1] = 0;
 	Porte[2] = 0;
 }
+
+Fantassin(int p) : Unite() {
+	Nom = "Fant";
+	Prix = 10;
+	ATK = 4;
+	Position = p;
+	Porte[0] = 1;
+	Porte[1] = 0;
+	Porte[2] = 0;
+}
+
 ~Fantassin() {
 }
+
 void SuperSolda() {
 	Nom = "Super";
 }
+
 virtual void etreAttaque (Unite* u) {
 	HP = HP - u->getATK();
 	if(HP <= 0) {
@@ -45,6 +60,16 @@ Archer() : Unite("Arch",12,8,3) {
 	Porte[2] = 3;
 }
 
+Archer(int p) : Unite() {
+	Nom = "Arch";
+	Prix = 12;
+	ATK = 3;
+	Position = p;
+	Porte[0] = 1;
+	Porte[1] = 2;
+	Porte[2] = 3;
+}
+
 ~Archer() {
 }
 };
@@ -56,6 +81,19 @@ Catapulte() : Unite("Cata",20,12,6) {
 	Porte[1] = 3;
 	Porte[2] = 4;
 }
+
+Catapulte(int p) : Unite() {
+	Nom = "Cata";
+	Prix = 20;
+	ATK = 6;
+	Position = p;
+	Porte[0] = 2;
+	Porte[1] = 3;
+	Porte[2] = 4;
+}
+
 ~Catapulte() {
 }
 };
+
+#endif

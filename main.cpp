@@ -35,12 +35,28 @@ string getSoldaCamp(int position);
 string getSoldaHp(int position);
 
 int main(int argc, char const *argv[]) {
-	cout<<endl<<"mode rapide ou mode precis?  0 rapide / 1 precis   ";
+	cout<<endl<<"Nouveau jeu ou charger?  0 nouveau / 1 charger   ";
+	int flag;
+	cin>>flag;
+	switch(flag) {
+	case 0:
+		Round = 1;
+		goto nouv;
+	case 1:
+		load();
+		affiche();
+		sleep(3);
+		goto charger;
+	}
+
+nouv:
+	cout<<endl<<"Mode rapide ou mode precis?  0 rapide / 1 precis   ";
 	cin>>Mode;
-	cout<<endl<<"jouer avec computer?  0 vs Joueur / 1 vs Computer   ";
+	cout<<endl<<"Jouer avec computer?  0 vs Joueur / 1 vs Computer   ";
 	cin>>AImode;
 
-	for(Round = 1; Round <= 1000; Round++) {
+charger:
+	for(; Round <= 1000; Round++) {
 		A->OR+=8;
 		B->OR+=8;
 		affiche();
