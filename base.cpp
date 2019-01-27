@@ -81,17 +81,17 @@ LabelA:
 					break;
 				case 8:
 					int flag;
-			label1:
+label1:
 					cout << "Vous voulez enregistrer?  0 Non / 1 Oui   ";
 					cin >> flag;
 					switch (flag) {
-						case 0:
-							exit(0);
-						case 1:
-							save();
-							exit(0);
-						default:
-							goto label1;
+					case 0:
+						exit(0);
+					case 1:
+						save();
+						exit(0);
+					default:
+						goto label1;
 					}
 				default:
 					cout << "Il n'existe pas ce type!!" << endl;
@@ -161,19 +161,19 @@ LabelB:
 					}
 					break;
 				case 8:
-				int flag;
-				label2:
-						cout << "Vous voulez enregistrer?  0 Non / 1 Oui   ";
-						cin >> flag;
-						switch (flag) {
-							case 0:
-								exit(0);
-							case 1:
-								save();
-								exit(0);
-							default:
-								goto label2;
-						}
+					int flag;
+label2:
+					cout << "Vous voulez enregistrer?  0 Non / 1 Oui   ";
+					cin >> flag;
+					switch (flag) {
+					case 0:
+						exit(0);
+					case 1:
+						save();
+						exit(0);
+					default:
+						goto label2;
+					}
 				default:
 					cout << "Il n'existe pas ce type!" << endl;
 					cout << "Choisir un autre type de soldat:" << endl;
