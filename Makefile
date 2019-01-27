@@ -1,4 +1,17 @@
-prog:main.cpp
+CC=g++
 
-	g++ -o prog main.cpp -lSDL2 -lSDL2_mixer
+SRCS=main.cpp
+
+OBJS=$(SRCS:.cpp=.o)
+
+EXEC=aow
+
+start:$(OBJS)
+	$(CC) -o $(EXEC) $(OBJS)
+
+.cpp.o:
+	$(CC) -o $@ -c $<
+
+clean:
+	rm -rf $(OBJS)
 

@@ -4,12 +4,12 @@
 #include "base.h"
 #include "solda.h"
 
-#define MIN 0    //随机数产生的范围
+#define MIN 0
 #define MAX 3
 
 using namespace std;
-extern int FlagA;
-extern int FlagB;
+int FlagA;
+int FlagB;
 extern int AImode;
 extern Unite *AllSolda[12];
 
@@ -23,8 +23,8 @@ Base::Base(int camp){
 void Base::CreatUnite(){
 	if(Tour == 0){
 		if(AllSolda[0] == NULL) {
-LabelA:	FlagA = 0;
-			FlagB = 0;
+			LabelA:	
+			FlagA = 0;
 			cin>>FlagA;
 			if(cin.fail())
 			{
@@ -49,7 +49,6 @@ LabelA:	FlagA = 0;
 				{
 					cout << "Or pas suffisant pour un Fantassin!!" << endl;
 					cout << "Choisir un autre type de solda:" << endl;
-						// cout << FlagA<<endl;
 					goto LabelA;
 				}
 				break;
@@ -63,7 +62,6 @@ LabelA:	FlagA = 0;
 				{
 					cout << "Or pas suffisant pour un Archer!!" << endl;
 					cout << "Choisir un autre type de solda:" << endl;
-					// cout << FlagA<<endl;
 					goto LabelA;
 				}
 				break;
@@ -94,7 +92,7 @@ LabelA:	FlagA = 0;
 
 	if(Tour == 1 && AImode == 0){
 		if(AllSolda[11] == NULL) {
-LabelB: FlagA = 0;
+			LabelB:
 			FlagB = 0;
 			cin>>FlagB;
 			if(cin.fail())
@@ -118,12 +116,8 @@ LabelB: FlagA = 0;
 				}
 				else
 				{
-					// cout << "Or pas suffisant pour un Fantassin!!" << endl;
-					cout << Tour <<  endl;
-					cout << FlagA << endl;
-					cout << FlagB << endl << endl << endl;
+					cout << "Or pas suffisant pour un Fantassin!!" << endl;
 				 	cout << "Choisir un autre type de solda:" << endl;
-					// FlagB = 0;
 					goto LabelB;
 				}
 				break;
@@ -165,11 +159,11 @@ LabelB: FlagA = 0;
 	else cout << "Pas de place pour B!" << endl;
 	}
 
-
+	/*Le coeur de notre AI*/
 	else if(Tour == 1 && AImode == 1){
 		if(AllSolda[11] == NULL) {
 			srand((unsigned)time(NULL));
-LabelB1:
+			LabelB1:
       FlagB = MIN + rand() % (MAX - MIN + 1);
 
 			switch(FlagB)
@@ -181,16 +175,7 @@ LabelB1:
 					AllSolda[11] =  new Fantassin();
 					OR -= 10;
 				}
-				else
-				{
-					// cout << "Or pas suffisant pour un Fantassin!!" << endl;
-					cout << Tour <<  endl;
-					cout << FlagA << endl;
-					cout << FlagB << endl << endl << endl;
-				 	cout << "Choisir un autre type de solda:" << endl;
-					// FlagB = 0;
-					goto LabelB1;
-				}
+				else goto LabelB1;
 				break;
 
 			case 2:
@@ -198,31 +183,18 @@ LabelB1:
 					AllSolda[11] = new Archer();
 					OR -= 12;
 				}
-				else
-				{
-					cout << "Or pas suffisant pour un Archer!!" << endl;
-				 	cout << "Choisir un autre type de solda:"<<endl;
-					goto LabelB1;
-				}
+				else goto LabelB1;
 				break;
 
 			case 3:
 				if(OR>=20) {
 					AllSolda[11] = new Catapulte();
 					OR -= 20;
-				}:
-				else
-				{
-					cout << "Or pas suffisant pour un Catapulte!" << endl;
-				 	cout << "Choisir un autre type de soldat:" << endl;
-					goto LabelB1;
 				}
+				else goto LabelB1;
 				break;
 			}
-
 		}
-	else cout << "Pas de place pour B!" << endl;
-
 	}
 }
 

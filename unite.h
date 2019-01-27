@@ -13,7 +13,7 @@ protected:
 	int ATK;
 	int Position;
 	int Porte[3];
-	int Camp;		//identifier de baseA ou baseB
+	int Camp;		//identifier si une unite est venu de baseA ou de baseB
 	int TimesAtk;
 
 public:

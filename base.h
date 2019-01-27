@@ -12,7 +12,8 @@ public:
   void etreAttaque(Unite* u);
   int getHP(){ return HP; }
   int getOR(){ return OR; }
-  void setHP() { HP = 0;}
+	void setOR(){ OR = 500; }
+  void setHP() { HP = 0; }
 };
 
 #endif
